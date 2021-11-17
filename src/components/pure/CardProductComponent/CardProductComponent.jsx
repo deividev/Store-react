@@ -1,5 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
 //Styles
 import './CardProductComponent.scss'
@@ -24,18 +30,39 @@ const CardProductComponent = ({ products }) => {
 
     return (
         <div className="grid">
-           {
-               products.map((product, index) =>
-               (   <Link className="Product-link" to={abrirProducto(product)}>
-                    <div className="card" key={index}>
-                        <h4 className="title">{product.title}</h4>
-                        <img width="200px" height="200px" src={product.image}alt="" />
-                        <span className="price">{product.price}</span>
-                        <button className="btn btn-success">Mas info</button>
-                    </div>
-                   </Link>
-               ))
-           }
+            {
+                    products.map((product, index) =>
+                    (   <Link className="product-link" to={abrirProducto(product)}>
+                                <Card sx={{ maxWidth: 345 }}>
+                                <CardHeader
+                                    title={product.title}
+                                    subheader=""
+                                />
+                                    <CardActionArea>
+                                        <CardMedia
+                                        component="img"
+                                        height="350"
+                                        image={product.image}
+                                        alt=""
+                                        />
+                                        <CardContent>
+                                        {/* <Typography gutterBottom variant="h5" component="div">
+                                            Lizard
+                                        </Typography> */}
+                                        <Typography variant="body2" color="text.secondary">
+                                           {product.description}
+                                        </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions>
+                                        <Button to={abrirProducto(product)} size="small" color="primary">
+                                        Mas detalles
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                        </Link>
+                    ))
+            }
         </div>
     );
 };
