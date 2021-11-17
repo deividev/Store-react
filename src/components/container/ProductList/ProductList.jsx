@@ -20,7 +20,7 @@ const ProductList = (s) => {
     const productsStore = useSelector(state => state.products);
 
     useEffect( () =>{
-        getProductList()
+        getProductList();
     });
     
     const getProductList = () => {
