@@ -1,14 +1,11 @@
 import React, { useEffect, useState} from 'react';
 import CardProductComponent from '../../pure/CardProductComponent/CardProductComponent';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProductList, readProductList } from '../../../redux/actions/product';
+import { createProductList } from '../../../redux/actions/product';
 
 //Services
 import axios from '../../../utils/config/axios.config';
 
-
-//Store
-import store from '../../../redux/index'
 
 
 const ProductList = (s) => {
@@ -16,7 +13,6 @@ const ProductList = (s) => {
     const productsLink = 'https://fakestoreapi.com/products';
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
-    const [storeState, setStoreState] = useState([]);
     const productsStore = useSelector(state => state.products);
 
     useEffect( () =>{
