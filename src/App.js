@@ -79,7 +79,7 @@ function App() {
             <img src={logo} className="App-logo" alt="logo" />
             <h1>ReactJS | Imagina Formación</h1>
             <button sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-              {theme.palette.mode === 'dark' ? 'dark' : 'ligth'}
+              {theme.palette.mode === 'dark' ? 'dark mode ' : 'ligth mode'}
             </button>
             {isLogged ? <MenuComponent/> : <LoginComponent  send={setLogin}/>}
             {isLogged ? <button className="clean" onClick={setLogout}>Logout</button> : <span></span>}
