@@ -7,6 +7,7 @@ export const useForm = (initialForm, validateForm, props) => {
     // const [response, setResponse] = useState(null);
     //setForm(initialForm);
     const handleChange = (e) => {
+        setErrors(validateForm(form));
         const { name, value } = e.target;
         setForm({
             ...form,
@@ -18,10 +19,18 @@ export const useForm = (initialForm, validateForm, props) => {
         setErrors(validateForm(form));
     };
     const handleSubmit = (e) => {
-            form.valid = true;
-            e.preventDefault();
-            props.send(form);
-            setForm(initialForm);
+            if (form.valid) {
+                form.valid = true;
+                e.preventDefault();
+                props.send(form);
+                setForm(initialForm);
+            }
+            else{
+                e.preventDefault();
+                props.send(form);
+            }
+           
+            
     };
     
     return {

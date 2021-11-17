@@ -5,6 +5,18 @@
     flex-direction: column;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 10px;
+}
+
+.form__control {
+    margin: 15px 0;
+}
+
 .form label {
     font-size: 18px;
     color: #fff;

@@ -1,6 +1,10 @@
 import React from 'react';
 import { useForm } from '../../../../hooks/userForm';
-import { useHistory, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
+
+//Component Material-UI
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 //Styles
 import './LoginComponent.scss';
@@ -15,22 +19,36 @@ const LoginComponent = (props, send) => {
         isLogin: false
     };
     const validationsForm = (form) => {
+        debugger
         let errors = {};
         const regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
         
-
+        
         if(!form.email.trim()) {
             errors.email = 'El asunto es obligatorio';
+            errors.emailValid = true;
         }
         else if (!regexEmail.test(form.email.trim())) {
-            errors.email = 'El asunto solo admite letras y espacios en blanco';
+            errors.email = 'El email solo acepta formato email';
+            errors.emailValid = true;
+        }
+        if (form.email && !errors.emailValid) {
+            errors.emailValid = false;
         }
         if(!form.password.trim()) {
             errors.password = 'La password es obligatoria';
+            errors.passwordValid = true;
         }
         else if (form.password.length < 5) {
             errors.password = 'La password minimo tiene que contener 5 characteres';
+            errors.passwordValid = true;
         }
+        if (form.password && !errors.passwordValid) {
+            errors.passwordValid = false;
+        }
+        if (!errors) {
+            form.valid = false;
+        }else { form.valid = true; }
         return errors;
     };
 
@@ -51,46 +69,41 @@ const LoginComponent = (props, send) => {
 
         return (
             <div className="messageHeader">
-               <form className="form" onSubmit={handleSubmit}>
-                   <div >
-                        {errors.email ? <span className="error">Email</span >: <label>Email</label>}
-                        <input 
-                            className={errors.email ? 'error-input' : 'input'} 
-                            placeholder="Escribe su email"
-                            type="email" 
-                            name="email" 
-                            onChange={handleChange}
+                <form className="form" onSubmit={handleSubmit}>
+                    <div className="form__control">
+                        <TextField 
+                            error={errors.emailValid}
+                            helperText={errors.email}
+                            label="Email" 
+                            variant="outlined"
+                            onChange={handleChange} 
                             onBlur={handleBlur}
                             value={form.email} 
+                            type="email" 
                             required
-                            />
-                            {errors.email && <span className="msg">{errors.email}</span >}
+                            name="email"
+                        />
                     </div>
-                    <div>
-                        {errors.password ? <span className="error">Password</span >: <label>Password</label>}
-                        <input 
-                            className={errors.password ? 'error-input' : 'input'} 
-                            placeholder="Escribe su password"
-                            type="password" 
-                            name="password" 
-                            onChange={handleChange}
+                    <div className="form__control">
+                        <TextField 
+                            error={errors.passwordValid}
+                            helperText={errors.password}
+                            label="Password" 
+                            variant="outlined"
+                            onChange={handleChange} 
                             onBlur={handleBlur}
-                            value={form.password} 
+                            value={form.password}  
+                            type="password" 
                             required
-                            minLength="4"
-                            />
-                            {errors.password && <span className="msg">{errors.password}</span >}
-                   </div>
-                   <Link className="resgiter-link" to='/register'>   
+                            name="password"
+                        />
+                    </div>
+                    {/* TODO crear pagina para register */}
+                    {/* <Link className="resgiter-link" to='/register'>   
                     Registrate si no lo has hecho aun!
-                    </Link>
-                   <button 
-                        type="submit" 
-                        className='new'
-                        >
-                            Login
-                    </button>
-               </form>
+                    </Link> */}
+                    <Button  type="submit"  variant="contained">Login</Button>
+                </form>
             </div>
         );
 }
