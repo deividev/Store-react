@@ -7,8 +7,7 @@ import { GuardLogin } from './routes/GuardLogin'
 
 //Styles
 import { useTheme, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 
 

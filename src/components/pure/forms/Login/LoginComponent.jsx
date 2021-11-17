@@ -19,7 +19,6 @@ const LoginComponent = (props, send) => {
         isLogin: false
     };
     const validationsForm = (form) => {
-        debugger
         let errors = {};
         const regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
         
