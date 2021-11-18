@@ -5,8 +5,12 @@ import { useDispatch } from 'react-redux';
 import { login, logout } from './redux/actions/user';
 import { GuardLogin } from './routes/GuardLogin'
 
-//Styles
+//Styles Material-UI
 import { useTheme, createTheme, ThemeProvider } from '@mui/material/styles';
+import Container from '@mui/material/Container';
+// import Box from '@mui/material/Box';
+// import { amber, deepOrange, grey, blue } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 
 
 
@@ -70,22 +74,26 @@ function App() {
     setLogged(false);
   }
   
+  
 
   return (
-  
-      <div className="App">
+    <Container  maxWidth="xxl" sx={{ 
+      bgcolor: 'background.default',
+      height: '100vh',
+      width: '100%',
+      backgroundColor: 'primary.dark',
+    }}>
         <Router>
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1>ReactJS | Imagina Formación</h1>
-            <button sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-              {theme.palette.mode === 'dark' ? 'dark mode ' : 'ligth mode'}
-            </button>
+            <Button variant="contained"  onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === 'dark' ? 'ligth mode ' : 'dark mode'}
+            </Button>
             {isLogged ? <MenuComponent/> : <LoginComponent  send={setLogin}/>}
-            {isLogged ? <button className="clean" onClick={setLogout}>Logout</button> : <span></span>}
+            {isLogged ? <Button variant="contained"  className="clean" onClick={setLogout}>Logout</Button> : <span></span>}
             
           </header>
-          <div className="App-body">
             <GuardLogin  path="/todo" component={ToDo}/>
             <Route  path="/store" component={Store}/>
             {/* <Route exact path="/register" component={Store}/> */}
@@ -94,11 +102,11 @@ function App() {
             <Route path="/product/:id" component={CardDetailsProductComponent}/>
 
             {isLogged ?  <Redirect to='/todo'/>  : <Redirect to='/login'/>}
-          </div> 
 
           <footer></footer>
         </Router> 
-      </div>
+    </Container>
+     
   
   );
 }
@@ -107,6 +115,7 @@ function App() {
 
 export default function ToggleColorMode() {
   const [mode, setMode] = React.useState('light');
+  
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {

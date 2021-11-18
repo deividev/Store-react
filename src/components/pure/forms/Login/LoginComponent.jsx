@@ -101,7 +101,7 @@ const LoginComponent = (props, send) => {
                     {/* <Link className="resgiter-link" to='/register'>   
                     Registrate si no lo has hecho aun!
                     </Link> */}
-                    <Button  type="submit"  variant="contained">Login</Button>
+                    <Button  type="submit" color="success" variant="contained">Login</Button>
                 </form>
             </div>
         );

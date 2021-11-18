@@ -1,5 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import './MessagesContainer.scss';
+
+
+//Styles Material-UI
+import Container from '@mui/material/Container';
+
 //Components
 import MessageHeader from '../../pure/forms/MessagesHeader/MessageHeader'; 
 import MessageTable from '../MessageTable/MessageTable';
@@ -33,22 +38,18 @@ export default function Messages() {
     let deleteMessage = (index) => { dispatch(borrarMensaje(index)) };
 
     return (
-      <div >
-         
-            <div className="messages">
-             
+      <Container  maxWidth="xl" sx={{ 
+        bgcolor: 'background.default',
+        backgroundColor: 'primary.dark',
+      }}>
             
           
-            <div className="messages">
               <MessageHeader clickNuevo={newMessage}  send={newMessage}>
               </MessageHeader>
               
               <MessageTable messages={messages} clickEliminar={deleteMessages} clickEliminarUno={deleteMessage} clickCheckRead={readMessage}>
               </MessageTable>
-            </div>
-          </div>
-             
         {/* <TaskListComponent></TaskListComponent> */}
-      </div>
+      </Container>
     );
   }
