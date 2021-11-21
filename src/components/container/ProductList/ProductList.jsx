@@ -6,6 +6,10 @@ import { createProductList } from '../../../redux/actions/product';
 //Services
 import axios from '../../../utils/config/axios.config';
 
+//Styles Material-UI
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+
 
 
 const ProductList = (s) => {
@@ -36,10 +40,13 @@ const ProductList = (s) => {
     }
     
     return (
-        <div>
+        <Box  sx={{ width: '100%',
+            bgcolor: 'background.default',
+            backgroundColor: 'primary.dark',
+        }}>
             {/* TODO Aplicar un map para renderizar la lista de tareas */}
             <CardProductComponent products={products}></CardProductComponent>
-        </div>
+        </Box>
     );
 };
 

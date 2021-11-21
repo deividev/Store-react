@@ -1,22 +1,28 @@
 import React  from 'react';
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 import { login, logout } from './redux/actions/user';
-import { GuardLogin } from './routes/GuardLogin'
+// import { GuardLogin } from './routes/GuardLogin'
 
 //Styles Material-UI
 import { useTheme, createTheme, ThemeProvider } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-// import Box from '@mui/material/Box';
+import Box from '@mui/material/Box';
 // import { amber, deepOrange, grey, blue } from '@mui/material/colors';
+import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+// import Link from '@mui/material/Link';
 
 
 
 
 //Components
-import MenuComponent from './components/container/menu/MenuComponent';
+// import MenuComponent from './components/container/menu/MenuComponent';
 import LoginComponent from'./components/pure/forms/Login/LoginComponent';
 import CardDetailsProductComponent from './components/pure/CardDetailsProductComponent/CardDetailsProductComponent';
 
@@ -29,8 +35,6 @@ import logo from './logo.svg';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-
-
 function App() {
 
   const dispatch = useDispatch();
@@ -40,12 +44,8 @@ function App() {
   const colorMode = React.useContext(ColorModeContext);
 
 
-
-
-  
-
-
   function setLogin(user) {
+    debugger
     if (user.valid) {
       if(!localStorage.getItem(user.email) && !user.isLogin){ 
         let userLogin = {
@@ -77,37 +77,62 @@ function App() {
   
 
   return (
-    <Container  maxWidth="xxl" sx={{ 
+    <Box   sx={{ 
+      height: '100%',
+      padding: '20px 0',
       bgcolor: 'background.default',
-      height: '100vh',
-      width: '100%',
       backgroundColor: 'primary.dark',
     }}>
-        <Router>
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1>ReactJS | Imagina Formación</h1>
-            <Button variant="contained"  onClick={colorMode.toggleColorMode}>
-              {theme.palette.mode === 'dark' ? 'ligth mode ' : 'dark mode'}
-            </Button>
-            {isLogged ? <MenuComponent/> : <LoginComponent  send={setLogin}/>}
-            {isLogged ? <Button variant="contained"  className="clean" onClick={setLogout}>Logout</Button> : <span></span>}
-            
-          </header>
-            <GuardLogin  path="/todo" component={ToDo}/>
-            <Route  path="/store" component={Store}/>
-            {/* <Route exact path="/register" component={Store}/> */}
-
-            <Route exact path="/about" component={About}/>
-            <Route path="/product/:id" component={CardDetailsProductComponent}/>
-
-            {isLogged ?  <Redirect to='/todo'/>  : <Redirect to='/login'/>}
+      <Router>
+        {isLogged &&  
+          <AppBar position="static">
+            <Toolbar variant="dense">
+              <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                {/* <MenuIcon /> */}
+              </IconButton>
+              <Button  color="inherit" component={Link} to="/store">
+                  Store
+              </Button>
+              <Button  color="inherit" component={Link} to="/todo">
+                  To-do
+              </Button>
+              <Button  color="inherit" component={Link} to="/about">
+                  About
+              </Button>
+              <Box   sx={{ 
+                display: 'flex',
+                justifyContent:'flex-end',
+                flexGrow: 1
+                }}>
+                  {isLogged && <Button sx={{ mr: 2, }} variant="contained"  onClick={colorMode.toggleColorMode}>
+                                {theme.palette.mode === 'dark' ? 'dark mode ' : 'light mode'}
+                              </Button>
+                  }
+                {isLogged ? <Button color="error" variant="contained"  className="clean" onClick={setLogout}>Logout</Button> : <span></span>}
+                
+              </Box>
+            </Toolbar>
+          </AppBar> 
+        }
+        <Box >
+          <div className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <Typography variant="h2" component="div" gutterBottom>
+                ReactJS | Imagina Formación
+              </Typography>
+              {isLogged ? <span/> : <LoginComponent  send={setLogin}/>}
+          </div>
+          <Route exact  path="/todo" component={ToDo}/>
+          <Route exact  path="/store" component={Store}/>
+          {/* <Route exact path="/register" component={Store}/> */}
+          <Route exact path="/about" component={About}/>
+          <Route path="/product/:id" component={CardDetailsProductComponent}/>
+          {isLogged ?  <Redirect to='/todo'/>  : <Redirect to='/login'/>}
 
           <footer></footer>
-        </Router> 
-    </Container>
-     
-  
+        </Box>
+      </Router> 
+    </Box>
   );
 }
 

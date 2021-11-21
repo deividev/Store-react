@@ -4,6 +4,7 @@ import './MessagesContainer.scss';
 
 //Styles Material-UI
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 //Components
 import MessageHeader from '../../pure/forms/MessagesHeader/MessageHeader'; 
@@ -38,9 +39,9 @@ export default function Messages() {
     let deleteMessage = (index) => { dispatch(borrarMensaje(index)) };
 
     return (
-      <Container  maxWidth="xl" sx={{ 
-        bgcolor: 'background.default',
-        backgroundColor: 'primary.dark',
+      <Box  sx={{ width: '100%',
+          bgcolor: 'background.default',
+          backgroundColor: 'primary.dark',
       }}>
             
           
@@ -50,6 +51,6 @@ export default function Messages() {
               <MessageTable messages={messages} clickEliminar={deleteMessages} clickEliminarUno={deleteMessage} clickCheckRead={readMessage}>
               </MessageTable>
         {/* <TaskListComponent></TaskListComponent> */}
-      </Container>
+      </Box>
     );
   }
