@@ -81,6 +81,7 @@ const LoginComponent = (props, send) => {
                             type="email" 
                             required
                             name="email"
+                            id="email"
                         />
                     </div>
                     <div className="form__control">
@@ -95,6 +96,7 @@ const LoginComponent = (props, send) => {
                             type="password" 
                             required
                             name="password"
+                            id="password"
                         />
                     </div>
                     {/* TODO crear pagina para register */}

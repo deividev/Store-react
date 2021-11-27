@@ -33,7 +33,7 @@ import ToDo from './pages/to-do/ToDoPage';
 import './App.scss';
 import logo from './logo.svg';
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function App() {
 
@@ -45,7 +45,6 @@ function App() {
 
 
   function setLogin(user) {
-    debugger
     if (user.valid) {
       if(!localStorage.getItem(user.email) && !user.isLogin){ 
         let userLogin = {
