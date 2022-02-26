@@ -1,5 +1,5 @@
 import React  from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -33,6 +33,10 @@ import ToDo from './pages/to-do/ToDoPage';
 import './App.scss';
 import logo from './logo.svg';
 
+//Firebase 
+import { collection, getDocs } from "firebase/firestore";
+import db  from './firebase/firebaseConfig';
+
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function App() {
@@ -42,6 +46,25 @@ function App() {
 
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
+
+  useEffect( () => {
+    debugger
+    const querySnapshot = async() => { 
+      const tasks = await getDocs(collection(db, "tasks"));
+      debugger
+      console.log(tasks.docs[0].data());
+    };
+    querySnapshot();
+    
+    // const getUsers = async() => {
+    //   debugger
+    //   const users = await getDocs(collection(db, 'tasks'));
+     
+      
+    //   console.log(users.docs);
+    // }
+    // getUsers();
+  }, []);
 
 
   function setLogin(user) {
